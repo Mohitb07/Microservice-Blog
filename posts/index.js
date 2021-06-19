@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 
 const app = express();
 
@@ -7,6 +8,7 @@ const { randomBytes } = require('crypto');
 const posts = {}
 
 app.use(express.json())
+app.use(cors())
 
 app.get('/posts', (req, res) => {
     res.send(posts)
