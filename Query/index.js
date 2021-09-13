@@ -36,6 +36,7 @@ const handleEvent = (type, data) => {
 }
 
 app.get('/posts', (req, res) => {
+    console.log('found /posts❤️')
     res.send(posts)
 })
 
@@ -51,10 +52,15 @@ app.post('/events', (req, res) => {
 
 app.listen(4002, async() => {
     console.log('Server is up and running at 4002')
+    try{
     const res = await axios.get('http://event-bus-srv:4005/events')
 
     for(let event of res.data){
         console.log('Processing event', event.type)
         handleEvent(event.type, event.data)
     }
+    }catch(err){
+        console.log('GOT ERROR WHILE FETCHING THE CACHED EVENTS IN DATA STORE')
+    }
+    
 })
